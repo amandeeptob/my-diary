@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup</title>
+  <link rel="stylesheet" href="auth-styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-hero">
+      <h1>Welcome to My Diary</h1>
+      <p>Jot down your thoughts anytime, anywhere.</p>
+    </div>
+
+    <div class="auth-form-container">
+      <div class="form-toggle">
+        <button id="login-btn" class="active">Login</button>
+        <button id="signup-btn">Signup</button>
+      </div>
+
+      <div class="form-container">
+        <form id="login-form" class="auth-form active" method="post" action="/login">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" name="email" id="login-email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" name="password" ="login-password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="submit-btn">Login</button>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </form>
+
+        <form id="signup-form" class="auth-form hidden" action="/signup" method="post">
+          <div class="form-group">
+            <label for="signup-name">Name</label>
+            <input type="text" name="name" id="signup-name" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" name="email" id="signup-email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" name="password" id="signup-password" placeholder="Create a password" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-confirm-password">Confirm Password</label>
+            <input type="password" id="signup-confirm-password" placeholder="Confirm your password" required>
+          </div>
+          <button type="submit" class="submit-btn" value="signup">Signup</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="auth-scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f9;
+    color: #333;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2d89ef;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .navbar .menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+  }
+  
+  .navbar .menu li {
+    display: inline;
+  }
+  
+  .navbar .menu a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    width: 300px;
+    background: #ffffff;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .sidebar h3 {
+    margin-top: 0;
+  }
+  
+  .calendar-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  #calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  #calendar-grid button {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background: #f4f4f9;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  #calendar-grid button:hover {
+    background: #2d89ef;
+    color: white;
+  }
+  
+  #calendar-grid button.selected {
+    background: #2d89ef;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .main-section {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #entry-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .save-btn {
+    padding: 10px;
+    background: #2d89ef;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .save-btn:hover {
+    background: #1e5fbf;
+  }
+  
