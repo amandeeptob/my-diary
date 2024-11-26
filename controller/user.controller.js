@@ -45,21 +45,20 @@ const login = async (req,res)=>{
     const {email,password} = req.body
     const user = await userModel.findOne({email: email});
     if(!user){
-        // return res.status(400).json({msg: "Invalid credentials"});
-        next()
+        return res.status(400).json({msg: "Invalid credentials"});
     }
     const isPasswordCorrect = await bcrypt.compare(password,user.password);
     if(!isPasswordCorrect){
-        // return res.status(400).json({msg: "Invalid credentials"});
-        next()
+        return res.status(400).json({msg: "Invalid credentials"});
+    }else{
+        const token = jwt.sign({email:user.email,name:user.name},process.env.SECRET_KEY,{expiresIn:process.env.TOKEN_EXPIRY_DURATION});
+        res.status(200)
+        .cookie("token", token, {
+            httpOnly: true,
+            maxAge: process.env.TOKEN_EXPIRY_DURATION
+        })
+        .redirect('/'); 
     }
-    const token = jwt.sign({email:user.email,name:user.name},process.env.SECRET_KEY,{expiresIn:process.env.TOKEN_EXPIRY_DURATION});
-    res.status(200)
-    .cookie("token", token, {
-        httpOnly: true,
-        maxAge: process.env.TOKEN_EXPIRY_DURATION
-    })
-    .redirect('/'); 
     // res.status(200).cookie("token", token, {
     //     httpOnly: true,
     //     maxAge: process.env.TOKEN_EXPIRY_DURATION*1000
