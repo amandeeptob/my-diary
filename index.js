@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser");
 
-const {login,signup}=require('./controller/user.contorller')
+const {login,signup}=require('./controller/user.controller')
 const auth = require('./controller/auth.controller')
 const {send,save,entry} = require('./controller/diary.controller')
 
