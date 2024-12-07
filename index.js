@@ -21,9 +21,11 @@ app.set('views',path.join(__dirname,'views'))
 app.set('view engine','ejs')
 
 app.get('/',auth,(req,res)=>{
-    if(req.user===null || req.user===undefined)
+    if (!req.user){
         res.render('login')
-    else res.render('index',{user:req.user.name})
+    }else{
+        res.render('index',{user:req.user.name})
+    }
 })
 
 app.get('/tum-fir-bhool-gye-naa',(req,res)=>{
@@ -46,12 +48,13 @@ app.post('/entries',auth,entry)
 
 app.post('/bhool-gye-kyaa',resetPassword)
 
-
 app.get('*', (req, res) => {
-    res.render('wrongPassword',{title:"Ye kya kar diya tunee🧐",leftHeading:"Ruk tu abhi maalik ko batati hu😒",leftMessage:"maalik maaaalik.... dekho ek pagal aa ke mere saath chedkhani kar rahi hai🫨",message:"Something went wrong!!!"});
+    if(!res.headersSent){
+        res.render('wrongPassword',{title:"Ye kya kar diya tunee🧐",leftHeading:"Ruk tu abhi maalik ko batati hu😒",leftMessage:"maalik maaaalik.... dekho ek pagal aa ke mere saath chedkhani kar rahi hai🫨",message:"Something went wrong!!!"});
+    }
 });
 
-mongoose.connect(process.env.DB,{useNewUrlParser: true,useUnifiedTopology: true})
+mongoose.connect(process.env.DB)
 .then(()=>{
     app.listen(port,()=>{
         console.log(`Server started on port ${port}`)
