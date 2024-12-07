@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cookieParser = require("cookie-parser");
 
-const {login,signup}=require('./controller/user.controller')
+const {login,signup,resetPassword}=require('./controller/user.controller')
 const auth = require('./controller/auth.controller')
 const {send,save,entry} = require('./controller/diary.controller')
 
@@ -26,6 +26,10 @@ app.get('/',auth,(req,res)=>{
     else res.render('index',{user:req.user.name})
 })
 
+app.get('/tum-fir-bhool-gye-naa',(req,res)=>{
+    res.render('resetPassword')
+})
+
 app.post('/login',login)
 app.post('/signup',signup)
 
@@ -39,6 +43,8 @@ app.post('/saveDiary',auth,save)
 app.post('/getDiary',auth,send)
 
 app.post('/entries',auth,entry)
+
+app.post('/bhool-gye-kyaa',resetPassword)
 
 mongoose.connect(process.env.DB,{useNewUrlParser: true,useUnifiedTopology: true})
 .then(()=>{

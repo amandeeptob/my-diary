@@ -29,15 +29,7 @@ const signup = async (req,res)=>{
         httpOnly: true,
         maxAge: process.env.TOKEN_EXPIRY_DURATION
     })
-    .redirect('/'); 
-    // res.status(200).cookie("token", token, {
-    //     httpOnly: true,
-    //     maxAge: process.env.TOKEN_EXPIRY_DURATION*1000
-    // }).redirect()
-    // .json({
-    //     authenticated: true,
-    //     message: "Authentication Successful."
-    // });
+    .redirect('/');
 }
 
 const login = async (req,res)=>{
@@ -59,13 +51,25 @@ const login = async (req,res)=>{
         })
         .redirect('/'); 
     }
-    // res.status(200).cookie("token", token, {
-    //     httpOnly: true,
-    //     maxAge: process.env.TOKEN_EXPIRY_DURATION*1000
-    //     }).json({
-    //     authenticated: true,
-    //     message: "Authentication Successful"
-    // });
 }
 
-module.exports = {login,signup};
+const resetPassword = async (req,res)=>{
+    const {email,password} = req.body;
+    try{
+        const hashedPassword = await bcrypt.hash(password,10)
+        let user = await userModel.findOne({email: email})
+        if(!user){
+            return res.status(201).json({msg: "Passwor changed!!"});
+        }
+        user.password=hashedPassword
+        console.log('Dw: ',password)
+        await user.save({ validateBeforeSave: false });
+        return res.status(200)
+        .redirect('/'); 
+    }catch(error){
+        console.log(error);
+        res.status(500).json({msg:"something went wrong..."});
+    }
+}
+
+module.exports = {login,signup,resetPassword};
