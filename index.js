@@ -28,7 +28,7 @@ app.get('/',auth,(req,res)=>{
     }
 })
 
-app.get('/bhool-gye',(req,res)=>{
+app.get('/tum-fir-bhool-gye-naa',(req,res)=>{
     res.render('resetPassword')
 })
 

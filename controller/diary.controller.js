@@ -8,8 +8,7 @@ const save = async (req,res)=>{
     await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
         if (err) {
             // return res.status(403).json({ error: 'Invalid user',isAuthenticated: false });
-            return res.status(403).json({'msg':'session expired...'})
-            res.render('wrongPassword',{title:"Arre arre ",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨"});
+            res.render('wrongPassword',{title:"Arre arre ",leftHeading:"Tum kon ho bhai!🤔",leftMessage:"Jao line me lago jaake🤨",message:"login to continue..."});
         }else{
             user = decodedToken
             req.body.user=user
