@@ -46,6 +46,11 @@ app.post('/entries',auth,entry)
 
 app.post('/bhool-gye-kyaa',resetPassword)
 
+
+app.get('*', (req, res) => {
+    res.render('wrongPassword',{title:"Ye kya kar diya tunee🧐",leftHeading:"Ruk tu abhi maalik ko batati hu😒",leftMessage:"maalik maaaalik.... dekho ek pagal aa ke mere saath chedkhani kar rahi hai🫨",message:"Something went wrong!!!"});
+});
+
 mongoose.connect(process.env.DB,{useNewUrlParser: true,useUnifiedTopology: true})
 .then(()=>{
     app.listen(port,()=>{
@@ -53,6 +58,6 @@ mongoose.connect(process.env.DB,{useNewUrlParser: true,useUnifiedTopology: true}
     });
     console.log("Connected to MongoAtlas")
 }).catch((err)=>{
-    console.log("Error connecting to MongoAtlas... Are you connected to HP??");
+    console.log("Error connecting to MongoAtlas...??");
     console.log(err);
 });

@@ -8,7 +8,7 @@ const signup = async (req,res)=>{
         const hashedPassword = await bcrypt.hash(password,10)
         let user = await userModel.findOne({email: email})
         if(user){
-            return res.status(400).json({msg: "User already exists"});
+            res.render('wrongPassword',{title:"Ye to coincidence ho gya bhai🫨",leftHeading:"Duniya me ek jaise 7 log hote hain😶",leftMessage:"Tumse pahle v ek aaya tha tumhare jaisa🙂",message:"Ye thobda to dekhela lag rha hai bhai🫠"});
         }
         newUser = await userModel.create({
             name: name,
@@ -17,7 +17,7 @@ const signup = async (req,res)=>{
         });
     }catch(error){
         console.log(error);
-        res.status(500).json({msg:"something went wrong..."});
+        res.render('wrongPassword',{title:"Arre mujhe chakkar aa rhe hain🫨",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨"});
     }
 
     let token = jwt.sign({email:newUser.email,name:newUser.name},process.env.SECRET_KEY,{expiresIn:process.env.TOKEN_EXPIRY_DURATION});
@@ -35,11 +35,11 @@ const login = async (req,res)=>{
     console.log('dl: ',password)
     const user = await userModel.findOne({email: email});
     if(!user){
-        return res.status(400).json({msg: "Invalid credentials"});
+        res.render('wrongPassword',{title:"Gajab topibaaj aadmi ho bee😶",leftHeading:"Arre kya, kya karu main iska!!",leftMessage:"control! control Uday control🫢",message:"firse signup kyu kar rhe ho tum🫠"});
     }
     const isPasswordCorrect = await bcrypt.compare(password,user.password);
     if(!isPasswordCorrect){
-        return res.status(400).json({msg: "Invalid credentials"});
+        res.render('wrongPassword',{title:"Itne galat kaise ho sakte ho?? 🥲",leftHeading:"Kaise kaise log rahte hain yha!!",leftMessage:"Ek din kachre wala utha ke le jayega🤪",message:"Wrong Password!!!"});
     }else{
         const token = jwt.sign({email:user.email,name:user.name},process.env.SECRET_KEY,{expiresIn:process.env.TOKEN_EXPIRY_DURATION});
         res.status(200)
@@ -57,7 +57,7 @@ const resetPassword = async (req,res)=>{
         const hashedPassword = await bcrypt.hash(password,10)
         let user = await userModel.findOne({email: email})
         if(!user){
-            return res.status(201).json({msg: "Passwor changed!!"});
+            res.render('wrongPassword',{title:"Le ho gya change🙂",leftHeading:"Chalo munna ab ghar jao",leftMessage:"Aur agli baar bhoole to mere paas mat aana🫢",message:"Chalo ab ghar jao🫠"});
         }
         user.password=hashedPassword
         console.log('Dw: ',password)
@@ -66,7 +66,7 @@ const resetPassword = async (req,res)=>{
         .redirect('/'); 
     }catch(error){
         console.log(error);
-        res.status(500).json({msg:"something went wrong..."});
+        res.render('wrongPassword',{title:"Arre mujhe chakkar aa rhe hain🫨",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨"});
     }
 }
 

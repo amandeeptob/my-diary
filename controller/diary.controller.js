@@ -9,6 +9,7 @@ const save = async (req,res)=>{
         if (err) {
             // return res.status(403).json({ error: 'Invalid user',isAuthenticated: false });
             return res.status(403).json({'msg':'session expired...'})
+            res.render('wrongPassword',{title:"Arre arre ",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨"});
         }else{
             user = decodedToken
             req.body.user=user
