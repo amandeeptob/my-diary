@@ -17,7 +17,7 @@ const signup = async (req,res)=>{
         });
     }catch(error){
         console.log(error);
-        res.render('wrongPassword',{title:"Arre mujhe chakkar aa rhe hain🫨",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨"});
+        res.render('wrongPassword',{title:"Arre mujhe chakkar aa rhe hain🫨",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨",message:"Tum ghar jao ham prabandh karte hain!!"});
     }
 
     let token = jwt.sign({email:newUser.email,name:newUser.name},process.env.SECRET_KEY,{expiresIn:process.env.TOKEN_EXPIRY_DURATION});
@@ -66,7 +66,7 @@ const resetPassword = async (req,res)=>{
         .redirect('/'); 
     }catch(error){
         console.log(error);
-        res.render('wrongPassword',{title:"Arre mujhe chakkar aa rhe hain🫨",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨"});
+        res.render('wrongPassword',{title:"Arre mujhe chakkar aa rhe hain🫨",leftHeading:"Kuch to gadbad hai Daya🤔",leftMessage:"Jra pta lagao ki ye hua kaise??🤨",message:"Tum ghar jao ham prabandh karte hain!!"});
     }
 }
 
