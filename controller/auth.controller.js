@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 
 function authenticate(req,res,next){
     const token = req.cookies?.token;
-    console.log('auth token:',token);
     let user=null
     // if (!token) {
     //   return res.status(401).json({ error: 'Invalid user' ,isAuthenticated: false});
@@ -17,8 +16,6 @@ function authenticate(req,res,next){
       }
       // Attach the decoded token to the request object
       user = decodedToken;
-
-      console.log("AT AUTH: ",user)
       req.user=user
       next()
     });

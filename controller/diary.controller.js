@@ -5,18 +5,15 @@ const auth = require('./auth.controller')
 
 const save = async (req,res)=>{
     const token=req.cookies?.token
-    console.log(token)
     await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
         if (err) {
             // return res.status(403).json({ error: 'Invalid user',isAuthenticated: false });
-            console.log('unable to verify')
             return res.status(403).json({'msg':'session expired...'})
         }else{
             user = decodedToken
             req.body.user=user
             try {
                 const user = await userModel.findOne({'email':req.body.user.email})
-                console.log('date',req.body.date)
                 const mydate=new Date(req.body.date)
                 mydate.setHours(mydate.getHours()+8)
                 const updatedContent = await diaryModel.findOneAndUpdate(
@@ -27,7 +24,6 @@ const save = async (req,res)=>{
                     upsert: true,
                   }
                 );
-                console.log('updated: ',updatedContent)
                 return res.status(200).json({'msg':'saved successfully'})
             } catch (error) {
                 console.error('Error while updating or creating log:', error);
@@ -39,7 +35,6 @@ const save = async (req,res)=>{
 
 const send = async (req,res)=>{
     const token=req.cookies?.token
-    console.log('req date',req.body.date)
     await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
         if(err){
             console.log('unable to verify')
@@ -49,11 +44,9 @@ const send = async (req,res)=>{
             req.body.user=user
             
             queryDate=new Date(req.body.date)
-            console.log('temp:',queryDate)
             queryDate.setHours(0)
             queryDate.setDate(queryDate.getDate()+1)
             queryDate=queryDate.toISOString().substring(0,10)
-            console.log('query date',queryDate)
             try {
                 const user = await userModel.findOne({'email':req.body.user.email})
                 const data = await diaryModel.findOne(
@@ -62,7 +55,6 @@ const send = async (req,res)=>{
                     $options: 'i'  // Optional: case-insensitive matching   
                   }}
                 );
-                console.log(data)
                 if(!data)
                     return res.status(200).json({'msg':'-1'})
                 else return res.status(200).json({'msg':'fetched successfully','content':data.data})
@@ -76,10 +68,8 @@ const send = async (req,res)=>{
 
 const entry = async (req,res)=>{
     const token=req.cookies?.token
-    console.log('entry ',token)
     await jwt.verify(token, process.env.SECRET_KEY, async (err, decodedToken) => {
         if(err){
-            console.log('unable to verify')
             return res.status(403).redirect('/')
         }else{
             user = decodedToken
@@ -102,7 +92,6 @@ const entry = async (req,res)=>{
                     data.forEach(element => {
                         dates.push(new Date(element.date).getDate())
                     });
-                    // console.log('date: ',data)
                     return res.status(200).json({'msg':'fetched successfully','dates':dates})
                 }
                 // else return res.status(200).json({'msg':'fetched successfully','content':data.data})

@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const signup = async (req,res)=>{
-    console.log('body: ',req.body)
     const {name,password,email} = req.body;
     try{
         const hashedPassword = await bcrypt.hash(password,10)
@@ -16,7 +15,6 @@ const signup = async (req,res)=>{
             password: hashedPassword,
             email: email
         });
-        console.log(newUser)
     }catch(error){
         console.log(error);
         res.status(500).json({msg:"something went wrong..."});
@@ -33,7 +31,6 @@ const signup = async (req,res)=>{
 }
 
 const login = async (req,res)=>{
-    console.log("Login:",req.body)
     const {email,password} = req.body
     const user = await userModel.findOne({email: email});
     if(!user){
@@ -49,7 +46,7 @@ const login = async (req,res)=>{
             httpOnly: true,
             maxAge: process.env.TOKEN_EXPIRY_DURATION
         })
-        .redirect('/'); 
+        .redirect('/');
     }
 }
 
