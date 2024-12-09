@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
         required: [true, "Password is required"], // pass array with second one is error message
         minlength:6,
     },
-    },{Timestamps:true}
+    },{timestamps:true}
 )
 
 module.exports = mongoose.model('User', userSchema);

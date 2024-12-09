@@ -16,7 +16,7 @@ const diarySchema = mongoose.Schema({
     }
     },
     {
-        Timestamps:true
+        timestamps:true
     }
 )
 module.exports = mongoose.model('Diary', diarySchema)
